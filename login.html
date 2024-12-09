@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>HEIZA INVESTMENTS</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+      <style>
+         body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            border: cover;
+            outline: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            background: orange;
+            font-family: 'Poppins', sans-serif;
+         }
+         .bg-img {
+            background: orange;
+            padding: 60px;
+            border-radius: 30px;
+            border-bgcolor: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 250px;
+         }
+         .content header {
+            color: white;
+            font-size: 38px;
+            font-weight: 1000;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+         }
+         .field {
+            position: relative;
+            margin-bottom: 20px;
+         }
+         .field span {
+            position: absolute;
+            width: 40px;
+            line-height: 0px;
+            color: #fff;
+         }
+         .field input {
+            width: 85%;
+            padding: 0 30px 0 30px;
+            height: 50px;
+            border: show;
+            body-background:green;
+            outline: none;
+            margin-left: -10px;
+            margin-top:-15px;
+            align:centre;
+            background: black;
+            color: aqua;
+            font-size: 20px;
+            border-radius: 15px;
+            
+         }
+         .space {
+            margin-top: 16px;
+         }
+         .show {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 14px;
+            color: #3498db;
+            cursor: pointer;
+         }
+         .pass {
+            margin: 10px 5px;
+            color: #fff;
+         }
+         .pass a {
+            color: #3498db;
+            text-decoration: none;
+         }
+         .field input[type="submit"] {
+            background: green;
+            border: none;
+            outline: none;
+            width:272px;
+            height: 50px;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+         }
+         .field input[type="submit"]:hover {
+            background: #2980b9;
+         }
+         .login {
+            color: green;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: 800px;
+         }
+         .links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            margin-left: 5px;
+         }
+         .links div {
+            background: indigo;
+            width: 48%;
+            text-align: center;
+            line-height: 50px;
+            color: aqua;
+            border-radius: 10px;
+            cursor: pointer;
+         }
+         .signup {
+            text-align: center;
+            color: #fff;
+         }
+         .signup a {
+            color: #3498db;
+            text-decoration: none;
+         }
+         .signup a:hover {
+            text-decoration: underline;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="bg-img">
+         <div class="content">
+            <header>HEIZA</header>
+            <form action="#">
+               <div class="field">
+                  <span class="fa fa-user"></span>
+                  <input type="text" required placeholder="Email or Phone">
+               </div>
+               <div class="field space">
+                  <span class="fa fa-lock"></span>
+                  <input type="password" class="pass-key" required placeholder="Password">
+                  <span class="show">SHOW</span>
+               </div>
+               <div class="pass">
+                  <a href="#"></a>
+               </div>
+               <div class="field">
+                  <input type="submit" value="SIGN IN">
+               </div>
+            </form>
+            <div class="login">
+               Or login with
+            </div>
+            <div class="links">
+               <div class="facebook">
+                  <i class="fab fa-facebook-f"><span>acebook</span></i>
+               </div>
+               <div class="instagram">
+                  <i class="fab fa-instagram"><span>instagram</span></i>
+               </div>
+            </div>
+            <div class="signup">
+               Don't have account?Just enter your new details and sign in
+               <a href="#"></a>
+            </div>
+            
+         </div>
+      </div>
+      <script>
+         const pass_field = document.querySelector('.pass-key');
+         const showBtn = document.querySelector('.show');
+         showBtn.addEventListener('click', function(){
+            if(pass_field.type === "password"){
+               pass_field.type = "text";
+               showBtn.textContent = "HIDE";
+               showBtn.style.color = "#3498db";
+            } else {
+               pass_field.type = "password";
+               showBtn.textContent = "SHOW";
+               showBtn.style.color = "#222";
+            }
+         });
+      </script>
+   </body>
+  </html>
+  
