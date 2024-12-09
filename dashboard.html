@@ -1,1 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: orange;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      margin: 0;
+      padding: 20px 0;
+      color: green;
+      font-size: 2rem;
+    }
+    .container {
+      width: 80%;
+      max-width: 600px;
+      color: orange;
+      border:show;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    .progress-bar {
+      width: 100%;
+      background: #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .progress-bar div {
+      height: 30px;
+      width: 0;
+      background: green;
+      border-radius: 10px;
+    }
+    .question-container {
+      display: none;
+    }
+    .question-container.active {
+      display: block;
+    }
+    .options {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 20px;
+      font-size: 1rem;
+      border: show;
+      color:white;
+      background-color: black;
+      cursor: pointer;
+      border-radius: 15px;
+    }
+    .options button.correct {
+      background-color: lightgreen;
+    }
+    .options button.wrong {
+      background-color: lightcoral;
+    }
+  .my-account {
+  position: absolute;
+  top: 10px;
+  left: 300px;
+  text-decoration: none;
+  color: green;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 3px solid green;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  transition: background-color 0.3s, color 0.3s;
+}
 
+.my-account:hover {
+  background-color: green;
+  color: white;
+}
+  
+    button.next {
+      margin-top: 20px;
+      margin-left:auto;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: show;
+      background-color: green;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .success-screen {
+      text-align: center;
+    }
+    .success-screen svg {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+    }
+    .success-screen h2 {
+      color: green;
+      margin-bottom: 20px;
+    }
+    .buy-premium {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .buy-premium button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: show;
+      background-color: orange;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button.go-back {
+      background-color: red;
+      color: white;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    
+  </style>
+</head>
+<body>
+  
+  <a href="https://withdrews.github.io/" class="my-account">My Account</a>
+  <h1>Heiza Surveys</h1>
+  <div class="container" id="main-container">
+    <div class="progress-bar">
+      <div id="progress"></div>
+    </div>
+    <div id="questions-container"></div>
+    <div id="completion-container" style="display: none;">
+      <div class="success-screen">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green">
+          <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+        </svg>
+        <h2>Congratulations!</h2>
+        <p>You have completed your survey and earned free 150 KSH!</p>
+        <p>Come back tomorrow for more surveys.</p>
+      </div>
+      <button class="go-back" onclick="resetSurvey()">Go Back</button>
+    </div>
+    <div id="exhausted-container" style="display: none;">
+      <h2>You have exhausted today's survey.</h2>
+      <p>Come back tomorrow or buy premium for three surveys daily! open my account to withdraw todays earnings</p>
+      <div class="buy-premium">
+        <button onclick="buyPremium()">Buy Premium ksh100</button>
+      </div>
+    </div>
+    <button class="next" id="nextButton" style="display: none;" onclick="goToNextQuestion()">Next</button>
+  </div>
+
+  <script>
+    const questions = [
+      { question: "What is the capital of Kenya?", options: ["Nairobi", "Mombasa", "Kisumu", "Eldoret"], correctAnswer: "Nairobi" },
+      { question: "What is 5 + 3?", options: ["5", "8", "10", "7"], correctAnswer: "8" },
+      { question: "Which planet is known as the Red Planet?", options: ["Mars", "Venus", "Earth", "Jupiter"], correctAnswer: "Mars" },
+      { question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Shark", "Giraffe"], correctAnswer: "Blue Whale" },
+      { question: "Who wrote 'Romeo and Juliet'?", options: ["Shakespeare", "Hemingway", "Dickens", "Austen"], correctAnswer: "Shakespeare" },
+      { question: "What is the boiling point of water?", options: ["100°C", "50°C", "150°C", "200°C"], correctAnswer: "100°C" },
+      { question: "Which is the smallest country in the world?", options: ["Vatican City", "Monaco", "Malta", "Liechtenstein"], correctAnswer: "Vatican City" },
+      { question: "What is the square root of 64?", options: ["6", "7", "8", "9"], correctAnswer: "8" },
+      { question: "What is the chemical symbol for water?", options: ["H2O", "CO2", "O2", "NaCl"], correctAnswer: "H2O" },
+      { question: "Who painted the Mona Lisa?", options: ["Da Vinci", "Van Gogh", "Picasso", "Michelangelo"], correctAnswer: "Da Vinci" },
+      { question: "Which gas do plants absorb from the atmosphere?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], correctAnswer: "Carbon Dioxide" },
+      { question: "What is the main ingredient in guacamole?", options: ["Avocado", "Tomato", "Onion", "Lettuce"], correctAnswer: "Avocado" },
+      { question: "Which ocean is the largest?", options: ["Atlantic", "Indian", "Pacific", "Arctic"], correctAnswer: "Pacific" },
+      { question: "What is the hardest natural substance?", options: ["Gold", "Diamond", "Silver", "Iron"], correctAnswer: "Diamond" },
+      { question: "Which continent has the most countries?", options: ["Africa", "Asia", "Europe", "South America"], correctAnswer: "Africa" }
+    ];
+
+    let currentQuestionIndex = 0;
+
+    const questionsContainer = document.getElementById("questions-container");
+    const progressBar = document.getElementById("progress");
+    const nextButton = document.getElementById("nextButton");
+
+    function generateQuestion(index) {
+      const questionData = questions[index];
+      const questionDiv = document.createElement("div");
+      questionDiv.className = "question-container";
+      questionDiv.id = `question-${index}`;
+      questionDiv.innerHTML = `
+        <h2>${questionData.question}</h2>
+        <div class="options">
+          ${questionData.options.map(option => `<button onclick="checkAnswer('${option}', '${questionData.correctAnswer}', ${index}, this)">${option}</button>`).join("")}
+        </div>
+      `;
+      questionsContainer.appendChild(questionDiv);
+    }
+
+    function checkAnswer(selected, correct, index, button) {
+      const allButtons = button.parentElement.querySelectorAll("button");
+
+      if (selected === correct) {
+        button.classList.add("correct");
+        allButtons.forEach(btn => btn.disabled = true);
+        nextButton.style.display = "block";
+      } else {
+        button.classList.add("wrong");
+        setTimeout(() => {
+          button.classList.remove("wrong");
+        }, 500);
+      }
+    }
+
+    function goToNextQuestion() {
+      const currentQuestion = document.getElementById(`question-${currentQuestionIndex}`);
+      currentQuestion.classList.remove("active");
+
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        const nextQuestion = document.getElementById(`question-${currentQuestionIndex}`);
+        nextQuestion.classList.add("active");
+        updateProgressBar();
+        nextButton.style.display = "none";
+      } else {
+        showCompletionScreen();
+      }
+    }
+
+    function showCompletionScreen() {
+      document.getElementById("questions-container").style.display = "none";
+      document.getElementById("completion-container").style.display = "block";
+      updateProgressBar(100);
+    }
+
+    function resetSurvey() {
+      document.getElementById("completion-container").style.display = "none";
+      document.getElementById("exhausted-container").style.display = "block";
+    }
+
+    function buyPremium() {
+      window.location.href = "https://app.payhero.co.ke/lipwa/835";
+    }
+
+    function updateProgressBar(progress = null) {
+      const progressPercent = progress || ((currentQuestionIndex + 1) / questions.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+    }
+
+    questions.forEach((_, index) => generateQuestion(index));
+    document.getElementById("question-0").classList.add("active");
+    updateProgressBar();
+  </script>
+</body>
+</html>
